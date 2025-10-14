@@ -3,150 +3,302 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Creative Crossroads: Simulation Guide</title>
+    <title>The Creative Crossroads - Simulation Guide</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
             color: #2c3e50;
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            padding-top: 80px; /* Space for fixed nav */
         }
 
+        /* Sticky Navigation */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 15px 20px;
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-container a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .nav-container a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            z-index: 999;
+            font-size: 1.5em;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
-
-        /* Hero Section */
-        .hero {
+        
+        .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 60px 40px;
-            border-radius: 12px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            text-align: center;
         }
-
-        .hero h1 {
+        
+        .header h1 {
             font-size: 2.5em;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             font-weight: 700;
         }
-
-        .hero .subtitle {
-            font-size: 1.2em;
-            opacity: 0.95;
-            margin-bottom: 25px;
-        }
-
-        .hero .context {
-            background: rgba(255,255,255,0.15);
-            padding: 20px;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Stage Flow */
-        .stages {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .stages h2 {
-            color: #667eea;
-            margin-bottom: 25px;
-            font-size: 1.8em;
-        }
-
-        .stage-flow {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .stage-card {
-            flex: 1;
-            min-width: 200px;
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-        }
-
-        .stage-card .stage-number {
-            font-weight: bold;
-            color: #667eea;
-            font-size: 0.9em;
-            margin-bottom: 8px;
-        }
-
-        .stage-card .stage-name {
-            font-weight: 600;
-            margin-bottom: 5px;
+        
+        .header p {
             font-size: 1.1em;
+            opacity: 0.95;
         }
-
-        .stage-card .stage-persona {
-            font-size: 0.9em;
-            color: #666;
+        
+        .content {
+            padding: 40px;
         }
-
-        /* Card Sections */
-        .card {
-            background: white;
-            padding: 35px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        
+        .section {
+            margin-bottom: 35px;
         }
-
-        .card h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .card h3 {
+        
+        .section h2 {
             color: #667eea;
-            margin-top: 25px;
+            font-size: 1.8em;
             margin-bottom: 15px;
-            font-size: 1.3em;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8e8f0;
         }
-
-        /* Quick Reference Boxes */
-        .quick-ref {
-            background: #e8f4f8;
-            border-left: 4px solid #3498db;
+        
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .highlight-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
             padding: 20px;
             margin: 20px 0;
-            border-radius: 6px;
+            border-radius: 8px;
+        }
+        
+        .phase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .phase-card {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border: 2px solid #667eea30;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .phase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+        
+        .phase-number {
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+            font-size: 1.2em;
         }
 
-        .quick-ref h4 {
-            color: #2980b9;
+        .inner-voice-card {
+            background: linear-gradient(135deg, #2196F320 0%, #2196F330 100%);
+            border: 3px solid #2196F3;
+        }
+
+        .inner-voice-card .phase-number {
+            background: #2196F3;
+        }
+
+        .carl-card {
+            border: 3px solid #667eea;
+        }
+        
+        .context-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .context-card {
+            background: white;
+            border: 2px solid #e8e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .context-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+        
+        .context-card h4 {
+            color: #667eea;
             margin-bottom: 12px;
-            font-size: 1.1em;
+            font-size: 1.2em;
+        }
+        
+        .context-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .context-card li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .context-card li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #764ba2;
+            font-weight: bold;
+        }
+        
+        .collapsible {
+            margin: 25px 0;
+        }
+        
+        .collapsible-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+        
+        .collapsible-header:hover {
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .collapsible-header h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: white;
+        }
+        
+        .arrow {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+        
+        .collapsible-header.active .arrow {
+            transform: rotate(180deg);
+        }
+        
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #f8f9fa;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .collapsible-content.active {
+            max-height: 2000px;
+        }
+        
+        .collapsible-inner {
+            padding: 25px;
         }
 
         .value-box {
-            background: #fff;
+            background: white;
+            border-left: 3px solid #667eea;
             padding: 15px;
             margin: 10px 0;
             border-radius: 6px;
-            border-left: 3px solid #667eea;
         }
 
         .value-box strong {
@@ -154,86 +306,45 @@
             display: block;
             margin-bottom: 5px;
         }
-
-        /* Collapsible Sections */
-        .collapsible {
-            background: #667eea;
-            color: white;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 1.1em;
-            font-weight: 600;
-            border-radius: 8px;
-            margin-top: 15px;
-            transition: background 0.3s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .collapsible:hover {
-            background: #5568d3;
-        }
-
-        .collapsible:after {
-            content: '▼';
-            font-size: 0.9em;
-            transition: transform 0.3s;
-        }
-
-        .collapsible.active:after {
-            transform: rotate(-180deg);
-        }
-
-        .collapsible-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            background: #f8f9fa;
-            border-radius: 0 0 8px 8px;
-        }
-
-        .collapsible-content-inner {
-            padding: 25px;
-        }
-
-        /* Tables */
+        
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin-top: 15px;
             background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-
-        th {
-            background: #667eea;
-            color: white;
-            padding: 15px;
+        
+        table th {
+            background: #667eea20;
+            color: #667eea;
+            padding: 12px;
             text-align: left;
             font-weight: 600;
         }
-
-        td {
-            padding: 15px;
-            border-bottom: 1px solid #e9ecef;
+        
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #e8e8f0;
+        }
+        
+        table tr:hover {
+            background: #667eea05;
+        }
+        
+        .warning-box {
+            background: #fff4e5;
+            border-left: 4px solid #ff9800;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .warning-box strong {
+            color: #ff9800;
         }
 
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:hover {
-            background: #f8f9fa;
-        }
-
-        /* Lists */
         ul {
             margin: 15px 0;
             padding-left: 25px;
@@ -243,593 +354,566 @@
             margin: 8px 0;
         }
 
-        /* Icons */
-        .icon {
-            font-size: 1.2em;
-            margin-right: 8px;
-        }
-
-        /* Alert Boxes */
-        .alert {
-            padding: 18px;
-            margin: 20px 0;
-            border-radius: 8px;
-            border-left: 4px solid;
-        }
-
-        .alert-info {
-            background: #e8f4f8;
-            border-color: #3498db;
-            color: #2980b9;
-        }
-
-        .alert-warning {
-            background: #fff3cd;
-            border-color: #ffc107;
-            color: #856404;
-        }
-
-        .alert-success {
-            background: #d4edda;
-            border-color: #28a745;
-            color: #155724;
-        }
-
-        /* Navigation */
-        .nav {
-            position: sticky;
-            top: 20px;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            z-index: 100;
-        }
-
-        .nav a {
+        .start-note {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e8e8f0;
             color: #667eea;
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            transition: background 0.3s;
-            font-weight: 500;
+            font-style: italic;
         }
 
-        .nav a:hover {
-            background: #e8f4f8;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
+            body {
+                padding-top: 120px; /* More space for wrapped nav on mobile */
+            }
+
+            .header h1 {
                 font-size: 2em;
             }
 
-            .stage-flow {
-                flex-direction: column;
-            }
-
-            .card, .hero {
+            .content {
                 padding: 25px;
             }
 
+            .phase-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                font-size: 0.85em;
+            }
+
+            .nav-container a {
+                padding: 6px 10px;
+            }
+
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+
             table {
-                font-size: 0.9em;
+                font-size: 0.85em;
             }
 
-            th, td {
-                padding: 10px;
-            }
-        }
-
-        /* Print styles */
-        @media print {
-            .nav, .collapsible {
-                display: none;
-            }
-            
-            .collapsible-content {
-                max-height: none !important;
-                display: block !important;
+            .context-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Hero Section -->
-        <div class="hero">
-            <h1>🍽️ The Creative Crossroads</h1>
-            <p class="subtitle">A Leadership Simulation: Managing Creative Talent Under Pressure</p>
-            
-            <div class="context">
-                <p><strong>Your Role:</strong> You are <strong>Jack (Riva)</strong>, owner of Gauloises restaurant in Brentwood, Los Angeles.</p>
-                <p style="margin-top: 10px;"><strong>The Situation:</strong> Tonight, after a dramatic critic visit, you must prevent your talented head chef Carl from resigning. He walked out during the evening but returned to cook an unauthorized dish that saved your reputation—now he's done.</p>
-                <p style="margin-top: 10px;"><strong>Your Challenge:</strong> Manage your emotions, repair the relationship, and negotiate a path forward that works for both of you.</p>
-            </div>
-        </div>
-
-        <!-- Quick Navigation -->
-        <div class="nav">
-            <a href="#stages">📋 Stages</a>
-            <a href="#character">👤 Know Jack</a>
-            <a href="#quick">⚡ Quick Reference</a>
+    <!-- Sticky Navigation Bar -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="#scenario">📋 Scenario</a>
+            <a href="#structure">🔄 Structure</a>
+            <a href="#know-jack">👤 Know Jack</a>
             <a href="#frameworks">📚 Frameworks</a>
+            <a href="#tips">💡 Tips & Help</a>
         </div>
+    </nav>
 
-        <!-- Simulation Flow -->
-        <div class="stages" id="stages">
-            <h2>📋 Simulation Flow: What to Expect</h2>
-            <p>This simulation has <strong>5 stages</strong> that alternate between two modes:</p>
-            
-            <div class="alert alert-info" style="margin: 20px 0;">
-                <strong>🧠 Inner Voice</strong> = Your private reflection (Jack's thoughts). Carl cannot hear this.<br>
-                <strong>👨‍🍳 Carl</strong> = Direct dialogue with your chef. He reacts based on how you lead.
-            </div>
+    <!-- Back to Top Button -->
+    <div class="back-to-top" onclick="scrollToTop()">
+        ↑
+    </div>
 
-            <div class="stage-flow">
-                <div class="stage-card">
-                    <div class="stage-number">STAGE 1</div>
-                    <div class="stage-name">Emotional Regulation</div>
-                    <div class="stage-persona">🧠 Inner Voice</div>
-                </div>
-                <div class="stage-card">
-                    <div class="stage-number">STAGE 2</div>
-                    <div class="stage-name">Repair & De-escalation</div>
-                    <div class="stage-persona">👨‍🍳 Carl</div>
-                </div>
-                <div class="stage-card">
-                    <div class="stage-number">STAGE 3</div>
-                    <div class="stage-name">Strategic Planning</div>
-                    <div class="stage-persona">🧠 Inner Voice</div>
-                </div>
-                <div class="stage-card">
-                    <div class="stage-number">STAGE 4</div>
-                    <div class="stage-name">Negotiation</div>
-                    <div class="stage-persona">👨‍🍳 Carl</div>
-                </div>
-                <div class="stage-card">
-                    <div class="stage-number">STAGE 5</div>
-                    <div class="stage-name">Critical Reflection</div>
-                    <div class="stage-persona">🧠 Inner Voice</div>
-                </div>
-            </div>
-
-            <div class="alert alert-warning" style="margin-top: 25px;">
-                <strong>⚠️ Important:</strong> You cannot skip stages or restart. Carl's responses are based on YOUR leadership behaviors. Poor communication will make him defensive; genuine respect will open him up to collaboration.
-            </div>
+    <div class="container" id="top">
+        <div class="header">
+            <h1>The Creative Crossroads</h1>
+            <p>Leadership Simulation: Managing Creative Talent Under Pressure</p>
         </div>
-
-        <!-- Character Reference -->
-        <div class="card" id="character">
-            <h2>👤 Know Yourself: Who Jack Is</h2>
-            <p style="margin-bottom: 25px;">Understanding your own character helps you make authentic decisions. Reference this when you're unsure what Jack would realistically want or offer.</p>
-
-            <h3>🎯 What Drives You (Your Core Values)</h3>
-            
-            <div class="value-box">
-                <strong>📊 Proven Success Over Experimentation</strong>
-                You believe in what works. The current menu made this "the most popular restaurant in the neighborhood." Why fix what isn't broken?
-            </div>
-
-            <div class="value-box">
-                <strong>💰 Financial Stability & Customer Loyalty</strong>
-                Every risk threatens your livelihood. When Carl put sweetbreads on the menu years ago, not one customer ordered it. You can't afford expensive failures.
-            </div>
-
-            <div class="value-box">
-                <strong>🎛️ Control & Being Informed</strong>
-                You renovated the kitchen and invested a fortune. When Carl acts without your knowledge, you feel blindsided and disrespected. You need to be in the loop.
-            </div>
-
-            <div class="value-box">
-                <strong>🎵 Consistency = Reliability</strong>
-                Your customers expect a certain experience. You think of it like a concert: <em>"If you bought tickets to the Stones and Jagger didn't play 'Satisfaction,' how would you feel?"</em>
-            </div>
-
-            <h3>😰 What Scares You (Your Fears)</h3>
-            <ul>
-                <li><strong>Uncertainty during high-stakes moments</strong> – Tonight's critic visit triggered panic mode</li>
-                <li><strong>Financial loss from experiments that flop</strong> – The sweetbreads disaster cost you money and credibility</li>
-                <li><strong>Losing control of your restaurant</strong> – Carl's unauthorized dish made you look out of the loop</li>
-                <li><strong>Public embarrassment</strong> – The critic's harsh review humiliated you in front of guests</li>
-            </ul>
-
-            <h3>🚫 Your Non-Negotiables (Hard Boundaries)</h3>
-            <ul>
-                <li>Cannot risk the entire menu – Signature dishes that customers love must stay</li>
-                <li>Must be involved in major decisions – No more surprise dishes during critic visits</li>
-                <li>Need advance notice of changes – Can't be blindsided in front of staff or customers</li>
-                <li>Require financial sustainability – Any experiment must have a testing phase</li>
-            </ul>
-
-            <h3>🟢 What You CAN Offer (Your Flexibility Zone)</h3>
-            <div class="alert alert-success">
-                <p>Even though you're risk-averse, you're not completely rigid. You CAN consider:</p>
-                <ul style="margin-top: 10px;">
-                    <li><strong>Limited creative freedom</strong> – Maybe specials, seasonal rotations, or testing during slow periods?</li>
-                    <li><strong>Structured experimentation</strong> – Test new dishes on low-stakes nights before committing</li>
-                    <li><strong>Shared decision-making</strong> – Collaborate without total loss of control</li>
-                    <li><strong>Continued investment</strong> – You already bought him a plancha; you believe in his talent</li>
-                </ul>
-                <p style="margin-top: 15px;"><strong>The key:</strong> You need <em>predictability + involvement</em>. Carl needs <em>autonomy + trust</em>. There's overlap if you get creative about structure.</p>
-            </div>
-
-            <h3>💔 Your Relationship with Carl</h3>
-            <ul>
-                <li>You <strong>respect</strong> his talent (that's why you hired him and invested in the kitchen)</li>
-                <li>You <strong>resent</strong> feeling undermined (tonight he saved the day but also defied you)</li>
-                <li>You're <strong>afraid</strong> of losing him (he's a "rising star" and genuinely skilled)</li>
-                <li>You're <strong>ashamed</strong> you didn't trust his instincts earlier (the critic loved his dish)</li>
-            </ul>
-
-            <div class="alert alert-warning">
-                <strong>The ultimatum</strong> ("either you stay or you go") came from panic and ego, not strategy. You regret it, but you're also not wrong that he broke the deal. Both of you have legitimate needs that conflict.
-            </div>
-        </div>
-
-        <!-- Quick Reference -->
-        <div class="card" id="quick">
-            <h2>⚡ Quick Reference: What to Say When Carl Asks...</h2>
-            <p style="margin-bottom: 20px;">Use this table when you need to respond to Carl's direct questions. Combine what you offer with what you need.</p>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>When Carl Says...</th>
-                        <th>What You Might Offer</th>
-                        <th>What You Need in Return</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><em>"I need creative freedom"</em></td>
-                        <td>Limited menu control (specials, seasonal items)</td>
-                        <td>Testing process, my input on timing</td>
-                    </tr>
-                    <tr>
-                        <td><em>"I can't cook the same menu for 5 more years"</em></td>
-                        <td>Gradual menu evolution with proven successes staying</td>
-                        <td>Customer feedback data, low-risk rollout</td>
-                    </tr>
-                    <tr>
-                        <td><em>"How do I know you won't override me again?"</em></td>
-                        <td>Commitment to new communication protocol</td>
-                        <td>Carl keeps me informed before major changes</td>
-                    </tr>
-                    <tr>
-                        <td><em>"What are YOU prepared to offer?"</em></td>
-                        <td><strong>⚠️ This is your cue to propose something specific</strong></td>
-                        <td><strong>Name what you need: communication, testing, shared decisions</strong></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3 style="margin-top: 30px;">🔍 Decoding Carl's Signals</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>If Carl...</th>
-                        <th>It Means...</th>
-                        <th>You Should...</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Gives short answers, avoids eye contact</td>
-                        <td><span style="color: #e74c3c; font-weight: bold;">DEFENSIVE</span> - Status/Autonomy threatened</td>
-                        <td>Rebuild trust with acknowledgment/apology</td>
-                    </tr>
-                    <tr>
-                        <td>Shares perspective but tests your sincerity</td>
-                        <td><span style="color: #f39c12; font-weight: bold;">CAUTIOUS</span> - Checking if you're genuine</td>
-                        <td>Be specific, avoid vague promises</td>
-                    </tr>
-                    <tr>
-                        <td>Opens up about feelings, proposes ideas</td>
-                        <td><span style="color: #27ae60; font-weight: bold;">OPEN</span> - Ready to collaborate</td>
-                        <td>Co-create solutions, commit to specifics</td>
-                    </tr>
-                    <tr>
-                        <td>Crosses arms, says "you're not understanding"</td>
-                        <td><span style="color: #c0392b; font-weight: bold;">FRUSTRATED</span> - Needs being ignored</td>
-                        <td>Pause, ask what you're missing</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Collapsible Frameworks -->
-        <div class="card" id="frameworks">
-            <h2>📚 Leadership Frameworks: Understanding the Dynamics</h2>
-            <p style="margin-bottom: 20px;">These concepts explain <strong>why</strong> this conflict is happening and <strong>how</strong> to navigate it effectively. Expand each section when you need deeper insight.</p>
-
-            <!-- Framework 1: Communication Styles -->
-            <button class="collapsible">🗣️ Communication Style Clash: Why You and Carl Keep Misunderstanding Each Other</button>
-            <div class="collapsible-content">
-                <div class="collapsible-content-inner">
-                    <h4>Carl's Style: CONCEPTUAL</h4>
-                    <ul>
-                        <li><strong>Thinks in:</strong> Big ideas, innovation, creative vision, "the art of cooking"</li>
-                        <li><strong>Values:</strong> Experimentation, future possibilities, reputation as an artist</li>
-                        <li><strong>When stressed:</strong> Feels trapped, creatively suffocated, like a "line cook with a fancy title"</li>
-                        <li><strong>What he hears when you say "play the hits":</strong> <em>"You don't trust my talent or vision"</em></li>
-                    </ul>
-
-                    <h4 style="margin-top: 25px;">Your Style: STRUCTURAL</h4>
-                    <ul>
-                        <li><strong>Thinks in:</strong> What's proven, clear processes, risk management, "if it works, don't change it"</li>
-                        <li><strong>Values:</strong> Consistency, stability, protecting what you've built</li>
-                        <li><strong>When stressed:</strong> Want control, predictability, established systems</li>
-                        <li><strong>What you hear when Carl says "creative rut":</strong> <em>"You're ungrateful for our success"</em></li>
-                    </ul>
-
-                    <div class="alert alert-info" style="margin-top: 25px;">
-                        <strong>💡 Why This Matters:</strong> Most of your conflict isn't about the actual menu—it's about HOW you each think about the menu. Carl sees stagnation where you see reliability. You see recklessness where he sees growth.
-                    </div>
-
-                    <div class="alert alert-success">
-                        <strong>✅ How to Bridge It:</strong> Acknowledge his need for creativity while explaining your need for structure. Find solutions that have BOTH innovation AND safety mechanisms (e.g., "test new dishes on Tuesdays, review data, then decide").
-                    </div>
-                </div>
-            </div>
-
-            <!-- Framework 2: SCARF -->
-            <button class="collapsible">⚡ SCARF Model: What Triggers Carl (and You)</button>
-            <div class="collapsible-content">
-                <div class="collapsible-content-inner">
-                    <p>SCARF is a framework for understanding what makes people feel threatened or safe in social situations. When these needs are violated, people become defensive. When they're met, people become collaborative.</p>
-
-                    <table style="margin-top: 20px;">
-                        <thead>
-                            <tr>
-                                <th>Need</th>
-                                <th>What It Means</th>
-                                <th>What Threatens It</th>
-                                <th>What Satisfies It</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Status</strong></td>
-                                <td>Feeling valued, respected, recognized for expertise</td>
-                                <td>
-                                    • "You work for me"<br>
-                                    • Calling his work "artsy-fartsy"<br>
-                                    • Public ultimatums
-                                </td>
-                                <td>
-                                    • Acknowledging his talent<br>
-                                    • "You deserve that plancha"<br>
-                                    • Recognizing tonight's success
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Certainty</strong></td>
-                                <td>Knowing what to expect</td>
-                                <td>
-                                    • Constant menu changes (your fear)<br>
-                                    • Unclear creative boundaries (Carl's fear)
-                                </td>
-                                <td>
-                                    • Clear processes<br>
-                                    • Testing protocols<br>
-                                    • Agreed communication system
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Autonomy</strong></td>
-                                <td>Having control over your domain</td>
-                                <td>
-                                    • Overriding his decisions<br>
-                                    • Micromanaging<br>
-                                    • "The deal is now changed!"
-                                </td>
-                                <td>
-                                    • Creative freedom within boundaries<br>
-                                    • Trust to make decisions<br>
-                                    • "You're the chef"
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Relatedness</strong></td>
-                                <td>Feeling connected, part of a team</td>
-                                <td>
-                                    • "Others will cook here after you're gone"<br>
-                                    • Treating him as replaceable
-                                </td>
-                                <td>
-                                    • "We built this together"<br>
-                                    • Acknowledging shared goals<br>
-                                    • Partnership language
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Fairness</strong></td>
-                                <td>Agreements are honored</td>
-                                <td>
-                                    • Breaking promises<br>
-                                    • Moving goalposts<br>
-                                    • Arbitrary rule changes
-                                </td>
-                                <td>
-                                    • Honoring original agreement<br>
-                                    • Explaining changes transparently<br>
-                                    • Mutual commitments
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="alert alert-warning" style="margin-top: 25px;">
-                        <strong>⚠️ Watch For:</strong> When Carl shuts down, crosses his arms, or gives short answers → You've likely triggered <strong>Status</strong> or <strong>Autonomy</strong>. When you panic about menu changes → That's your <strong>Certainty</strong> need being threatened.
-                    </div>
-
-                    <div class="alert alert-success">
-                        <strong>✅ Use It:</strong> Before proposing something, ask yourself: <em>"Does this protect his Status/Autonomy while also meeting my Certainty needs?"</em>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Framework 3: Conflict Styles -->
-            <button class="collapsible">🥊 Conflict Styles: How You Handle Disagreement</button>
-            <div class="collapsible-content">
-                <div class="collapsible-content-inner">
-                    <p>When conflict happens, people tend to use one of these approaches:</p>
-
-                    <table style="margin-top: 20px;">
-                        <thead>
-                            <tr>
-                                <th>Style</th>
-                                <th>What It Looks Like</th>
-                                <th>When It's Effective</th>
-                                <th>When It Backfires</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Competing</strong><br><span style="color: #e74c3c;">(Your default)</span></td>
-                                <td>"Either you stay or go!" Asserting authority, win/lose</td>
-                                <td>When quick decisions are needed</td>
-                                <td>Creates resentment, damages relationships</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Avoiding</strong></td>
-                                <td>Walking away, "we'll deal with it later"</td>
-                                <td>When emotions are too high</td>
-                                <td>Problems fester, nothing gets resolved</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Accommodating</strong></td>
-                                <td>"Okay, do whatever you want" (giving in)</td>
-                                <td>When relationship matters more than issue</td>
-                                <td>You lose boundaries, feel resentful later</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Compromising</strong></td>
-                                <td>"Let's split the difference"</td>
-                                <td>When time is limited</td>
-                                <td>Neither person is satisfied, mediocre solutions</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Collaborating</strong><br><span style="color: #27ae60;">(The goal)</span></td>
-                                <td>"What if we both got what we needed?" Win-win</td>
-                                <td>When relationship AND outcome both matter</td>
-                                <td>Takes time, requires vulnerability</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="alert alert-warning" style="margin-top: 25px;">
-                        <strong>Your ultimatum tonight = Competing style</strong> triggered by panic. It protected your authority but destroyed trust.
-                    </div>
-
-                    <div class="alert alert-success">
-                        <strong>What Carl needs now: Collaboration.</strong> He won't stay for accommodation ("okay, do whatever you want") because that's hollow. He needs genuine partnership where you both shape the solution.
-                    </div>
-
-                    <h4 style="margin-top: 25px;">How to Shift to Collaboration:</h4>
-                    <ul>
-                        <li>"What do you need to feel like a real chef here?"</li>
-                        <li>"How can we balance your creativity with my stability needs?"</li>
-                        <li>"What would a win-win look like?"</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Framework 4: Three Foundations -->
-            <button class="collapsible">🎯 The Three Foundations of Repair</button>
-            <div class="collapsible-content">
-                <div class="collapsible-content-inner">
-                    <p>Before you can negotiate solutions, you must rebuild trust. Carl needs to see three things from you:</p>
-
-                    <div class="value-box" style="margin-top: 20px;">
-                        <strong>1. Acknowledgment (Status)</strong>
-                        <ul style="margin-top: 10px;">
-                            <li>Recognize his talent and tonight's success <strong>specifically</strong></li>
-                            <li><em>"That duck dish was extraordinary"</em></li>
-                            <li><em>"You saved our reputation tonight"</em></li>
+        
+        <div class="content">
+            <!-- Scenario Overview -->
+            <div class="section" id="scenario">
+                <h2>📋 Scenario Overview</h2>
+                <p>You are <strong>Jack (Riva)</strong>, owner of Gauloises restaurant in Brentwood, Los Angeles. Tonight, you're about to confront your talented head chef Carl in the kitchen after a dramatic evening.</p>
+                
+                <div class="context-grid">
+                    <div class="context-card">
+                        <h4>🔥 The Crisis</h4>
+                        <ul>
+                            <li>Major food critic visited tonight</li>
+                            <li>You gave Carl an ultimatum: "play the hits or leave"</li>
+                            <li>Carl walked out during service</li>
+                            <li>He returned without permission and cooked an innovative dish</li>
+                            <li>The critic loved it—Carl saved the night</li>
+                            <li>Now Carl is resigning</li>
                         </ul>
                     </div>
-
-                    <div class="value-box">
-                        <strong>2. Ownership (Fairness)</strong>
-                        <ul style="margin-top: 10px;">
-                            <li>Apologize for a specific behavior <strong>without "but"</strong></li>
-                            <li><em>"I was wrong to give you that ultimatum"</em></li>
-                            <li><em>"I shouldn't have overridden you publicly"</em></li>
-                            <li>❌ <strong>BAD:</strong> "I'm sorry, BUT you did break the rules..."</li>
+                    
+                    <div class="context-card">
+                        <h4>😤 Your Emotions</h4>
+                        <ul>
+                            <li><strong>Furious</strong> that he defied you</li>
+                            <li><strong>Grateful</strong> that he came back</li>
+                            <li><strong>Humiliated</strong> by the critic's harsh review</li>
+                            <li><strong>Ashamed</strong> you didn't trust his instincts</li>
+                            <li><strong>Afraid</strong> of losing your talented chef</li>
                         </ul>
                     </div>
+                </div>
 
-                    <div class="value-box">
-                        <strong>3. Appreciation (Relatedness)</strong>
-                        <ul style="margin-top: 10px;">
-                            <li>Express why he matters <strong>beyond tonight</strong></li>
-                            <li><em>"You came back because you care about this place, and that means everything"</em></li>
-                            <li><em>"I don't want to lose you"</em></li>
+                <div class="highlight-box" style="margin-top: 25px;">
+                    <strong>Your Goal:</strong> Prevent Carl from resigning, repair the relationship, and find a path forward that balances creative freedom with business stability.
+                </div>
+            </div>
+
+            <!-- Simulation Structure -->
+            <div class="section" id="structure">
+                <h2>🔄 Simulation Structure</h2>
+                <p>The simulation has <strong>5 stages</strong> that alternate between two personas:</p>
+                
+                <div class="warning-box">
+                    <p style="margin: 0;"><strong>⚠️ Important:</strong> You'll interact with <strong>two different personas</strong> throughout this simulation:</p>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><strong>👨‍🍳 Carl</strong> (Stages 2 & 4): Direct dialogue with your chef—he reacts based on YOUR leadership</li>
+                        <li><strong>🧠 Inner Voice</strong> (Stages 1, 3 & 5): Your private reflection. Carl cannot hear this.</li>
+                    </ul>
+                </div>
+                
+                <div class="phase-grid">
+                    <div class="phase-card inner-voice-card">
+                        <div class="phase-number">1</div>
+                        <strong>Emotional Regulation</strong>
+                        <p style="font-size: 0.9em; margin-top: 8px; color: #2196F3; font-weight: 600;">🧠 Inner Voice</p>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Process your emotions before approaching Carl</p>
+                    </div>
+                    
+                    <div class="phase-card carl-card">
+                        <div class="phase-number">2</div>
+                        <strong>Repair & De-escalation</strong>
+                        <p style="font-size: 0.9em; margin-top: 8px; color: #667eea; font-weight: 600;">👨‍🍳 Talking with Carl</p>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Address the immediate events, apologize, and rebuild trust</p>
+                    </div>
+                    
+                    <div class="phase-card inner-voice-card">
+                        <div class="phase-number">3</div>
+                        <strong>Strategic Planning</strong>
+                        <p style="font-size: 0.9em; margin-top: 8px; color: #2196F3; font-weight: 600;">🧠 Inner Voice</p>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Analyze the interaction and plan for negotiation</p>
+                    </div>
+                    
+                    <div class="phase-card carl-card">
+                        <div class="phase-number">4</div>
+                        <strong>Negotiation & Alignment</strong>
+                        <p style="font-size: 0.9em; margin-top: 8px; color: #667eea; font-weight: 600;">👨‍🍳 Talking with Carl</p>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Co-create solutions that work for both of you</p>
+                    </div>
+                    
+                    <div class="phase-card inner-voice-card">
+                        <div class="phase-number">5</div>
+                        <strong>Critical Reflection</strong>
+                        <p style="font-size: 0.9em; margin-top: 8px; color: #2196F3; font-weight: 600;">🧠 Inner Voice</p>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Reflect on your leadership and extract key lessons</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <strong>Remember:</strong> You cannot skip stages or restart. Carl's responses are based on YOUR leadership behaviors—poor communication makes him defensive, genuine respect opens him to collaboration.
+                </div>
+            </div>
+
+            <!-- Know Jack -->
+            <div class="section" id="know-jack">
+                <h2>👤 Know Jack: Understanding Yourself</h2>
+                <p style="margin-bottom: 25px;">As Jack, you have specific values, fears, and boundaries that shape your decisions. Reference this when you're unsure what Jack would realistically want or offer.</p>
+
+                <h3>What Drives You</h3>
+                
+                <div class="value-box">
+                    <strong>📊 Proven Success Over Experimentation</strong>
+                    You believe in what works. The current menu made this "the most popular restaurant in the neighborhood." Why fix what isn't broken?
+                </div>
+
+                <div class="value-box">
+                    <strong>💰 Financial Stability & Customer Loyalty</strong>
+                    Every risk threatens your livelihood. When Carl put sweetbreads on the menu years ago, <em>not one customer ordered it</em>. You can't afford expensive failures.
+                </div>
+
+                <div class="value-box">
+                    <strong>🎛️ Control & Being Informed</strong>
+                    You renovated the kitchen and invested a fortune. When Carl acts without your knowledge, you feel blindsided and disrespected.
+                </div>
+
+                <div class="value-box">
+                    <strong>🎵 Consistency = Reliability</strong>
+                    Your customers expect a certain experience. You think of it like a concert: <em>"If you bought tickets to the Stones and Jagger didn't play 'Satisfaction,' how would you feel?"</em>
+                </div>
+
+                <h3 style="margin-top: 30px;">Your Boundaries & Flexibility</h3>
+                <div class="context-grid">
+                    <div class="context-card">
+                        <h4 style="color: #e74c3c;">🚫 Non-Negotiables</h4>
+                        <ul>
+                            <li>Signature dishes must stay</li>
+                            <li>Must be involved in major decisions</li>
+                            <li>Need advance notice of changes</li>
+                            <li>Require financial sustainability</li>
                         </ul>
                     </div>
+                    
+                    <div class="context-card">
+                        <h4 style="color: #27ae60;">✅ What You CAN Offer</h4>
+                        <ul>
+                            <li>Limited creative freedom (specials, seasonal items)</li>
+                            <li>Structured experimentation (test on slow nights)</li>
+                            <li>Shared decision-making</li>
+                            <li>Continued investment in his growth</li>
+                        </ul>
+                    </div>
+                </div>
 
-                    <div class="alert alert-warning" style="margin-top: 25px;">
-                        <strong>⚠️ Critical:</strong> Until all three are demonstrated, Carl will stay guarded. You can't skip to negotiation without laying this foundation first.
+                <div class="highlight-box" style="margin-top: 25px; background: #e8f4f8; border-left: 4px solid #3498db;">
+                    <strong>The Key:</strong> You need <em>predictability + involvement</em>. Carl needs <em>autonomy + trust</em>. There's overlap if you both get creative about structure.
+                </div>
+            </div>
+
+            <!-- Frameworks -->
+            <div class="section" id="frameworks">
+                <h2>📚 Leadership Frameworks</h2>
+                <p style="margin-bottom: 20px;">These concepts explain <strong>why</strong> this conflict is happening and <strong>how</strong> to navigate it. Expand each when you need deeper understanding.</p>
+
+                <!-- Framework 1 -->
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h3>🗣️ Communication Styles: Why You Keep Misunderstanding Each Other</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <div class="context-grid">
+                                <div class="context-card">
+                                    <h4>Carl's Style: CONCEPTUAL</h4>
+                                    <ul>
+                                        <li>Thinks in: Big ideas, innovation, "the art of cooking"</li>
+                                        <li>Values: Experimentation, future possibilities</li>
+                                        <li>When stressed: Feels trapped, creatively suffocated</li>
+                                        <li>Hears "play the hits" as: <em>"You don't trust my talent"</em></li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="context-card">
+                                    <h4>Your Style: STRUCTURAL</h4>
+                                    <ul>
+                                        <li>Thinks in: What's proven, clear processes, risk management</li>
+                                        <li>Values: Consistency, stability, protecting what you built</li>
+                                        <li>When stressed: Want control, predictability</li>
+                                        <li>Hears "creative rut" as: <em>"You're ungrateful"</em></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="highlight-box" style="margin-top: 20px;">
+                                <strong>💡 The Key:</strong> Most of your conflict isn't about the menu—it's about HOW you each think about the menu. Bridge this by acknowledging his creativity needs while explaining your structure needs. Find solutions with BOTH innovation AND safety mechanisms.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Framework 2 -->
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h3>⚡ SCARF Model: What Triggers Carl (and You)</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <p>When these social needs are violated, people become defensive. When met, they become collaborative.</p>
+                            
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Need</th>
+                                        <th>What Threatens It</th>
+                                        <th>What Satisfies It</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Status</strong><br><span style="font-size: 0.9em; color: #666;">Feeling valued, respected</span></td>
+                                        <td>• "You work for me"<br>• Calling work "artsy-fartsy"<br>• Public ultimatums</td>
+                                        <td>• Acknowledging talent<br>• "You deserve that plancha"<br>• Recognizing tonight's success</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Certainty</strong><br><span style="font-size: 0.9em; color: #666;">Knowing what to expect</span></td>
+                                        <td>• Constant menu changes (your fear)<br>• Unclear boundaries (Carl's fear)</td>
+                                        <td>• Clear processes<br>• Testing protocols<br>• Communication system</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Autonomy</strong><br><span style="font-size: 0.9em; color: #666;">Control over your domain</span></td>
+                                        <td>• Overriding decisions<br>• Micromanaging<br>• "The deal is now changed!"</td>
+                                        <td>• Creative freedom (with boundaries)<br>• Trust to make decisions<br>• "You're the chef"</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Relatedness</strong><br><span style="font-size: 0.9em; color: #666;">Feeling connected</span></td>
+                                        <td>• "Others will cook after you're gone"<br>• Treating as replaceable</td>
+                                        <td>• "We built this together"<br>• Acknowledging shared goals<br>• Partnership language</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Fairness</strong><br><span style="font-size: 0.9em; color: #666;">Agreements honored</span></td>
+                                        <td>• Breaking promises<br>• Moving goalposts<br>• Arbitrary changes</td>
+                                        <td>• Honoring agreements<br>• Transparent explanations<br>• Mutual commitments</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="warning-box">
+                                <strong>⚠️ Watch For:</strong> When Carl shuts down or gives short answers → You've triggered <strong>Status</strong> or <strong>Autonomy</strong>. When you panic about changes → That's your <strong>Certainty</strong> need being threatened.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Framework 3 -->
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h3>🥊 Conflict Styles: How to Shift to Collaboration</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Style</th>
+                                        <th>What It Looks Like</th>
+                                        <th>When It Backfires</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="background: #ffebee;">
+                                        <td><strong>Competing</strong><br><span style="color: #c62828;">(Your ultimatum)</span></td>
+                                        <td>"Either you stay or go!" Win/lose</td>
+                                        <td>Creates resentment, damages relationships</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Avoiding</strong></td>
+                                        <td>"We'll deal with it later"</td>
+                                        <td>Problems fester, nothing gets resolved</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Accommodating</strong></td>
+                                        <td>"Okay, do whatever you want"</td>
+                                        <td>You lose boundaries, feel resentful</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Compromising</strong></td>
+                                        <td>"Let's split the difference"</td>
+                                        <td>Neither person satisfied</td>
+                                    </tr>
+                                    <tr style="background: #e8f5e9;">
+                                        <td><strong>Collaborating</strong><br><span style="color: #2e7d32;">(The goal)</span></td>
+                                        <td>"What if we both got what we needed?"</td>
+                                        <td>Takes time, requires vulnerability</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="highlight-box" style="margin-top: 20px;">
+                                <strong>What Carl needs now: Collaboration.</strong> Not accommodation ("do whatever") because that's hollow. He needs genuine partnership where you both shape the solution.
+                            </div>
+
+                            <h4 style="margin-top: 20px;">Collaborative Questions to Ask:</h4>
+                            <ul>
+                                <li>"What do you need to feel like a real chef here?"</li>
+                                <li>"How can we balance your creativity with my stability needs?"</li>
+                                <li>"What would a win-win look like?"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Framework 4 -->
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h3>🎯 The Three Foundations of Repair</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <p>Before negotiating solutions, you must rebuild trust. Carl needs to see three things from you:</p>
+
+                            <div class="value-box" style="margin-top: 20px;">
+                                <strong>1. Acknowledgment (Status)</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Recognize his talent and tonight's success <strong>specifically</strong></li>
+                                    <li><em>"That duck dish was extraordinary"</em></li>
+                                    <li><em>"You saved our reputation tonight"</em></li>
+                                </ul>
+                            </div>
+
+                            <div class="value-box">
+                                <strong>2. Ownership (Fairness)</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Apologize for specific behavior <strong>without "but"</strong></li>
+                                    <li><em>"I was wrong to give you that ultimatum"</em></li>
+                                    <li>❌ BAD: "I'm sorry, BUT you broke the rules..."</li>
+                                </ul>
+                            </div>
+
+                            <div class="value-box">
+                                <strong>3. Appreciation (Relatedness)</strong>
+                                <ul style="margin-top: 10px;">
+                                    <li>Express why he matters <strong>beyond tonight</strong></li>
+                                    <li><em>"You came back because you care about this place"</em></li>
+                                    <li><em>"I don't want to lose you"</em></li>
+                                </ul>
+                            </div>
+
+                            <div class="warning-box">
+                                <strong>⚠️ Critical:</strong> Until all three are demonstrated, Carl will stay guarded. You can't skip to negotiation without this foundation.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Final Call to Action -->
-        <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-            <h2 style="color: white; border-bottom: 3px solid rgba(255,255,255,0.3);">🎬 Ready to Begin?</h2>
-            <p style="font-size: 1.1em; margin: 20px 0;">Keep this guide open in a separate tab during the simulation. Reference it when:</p>
-            <ul style="margin: 20px 0;">
-                <li>You're unsure what Jack would realistically want</li>
-                <li>Carl asks "What are you prepared to offer?"</li>
-                <li>You need to decode Carl's behavior (is he defensive, cautious, or open?)</li>
-                <li>You want to understand the leadership concepts being tested</li>
-            </ul>
-            <div class="alert" style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.5); color: white; margin-top: 25px;">
-                <strong>💡 Remember:</strong> Carl won't propose complete solutions for you. <strong>YOU</strong> are the owner—you must come to the table with specific ideas that balance his autonomy with your stability. The simulation tests your ability to <strong>lead through repair, reflection, and co-creation.</strong>
+            <!-- Tips & Help -->
+            <div class="section" id="tips">
+                <h2>💡 Tips & Help: What to Do When...</h2>
+                <p style="margin-bottom: 20px;">Quick reference for common situations during the simulation.</p>
+
+                <!-- Collapsible 1: When Carl Asks Questions -->
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h3>When Carl Asks You Direct Questions</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>When Carl Says...</th>
+                                        <th>What You Might Offer</th>
+                                        <th>What You Need in Return</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><em>"I need creative freedom"</em></td>
+                                        <td>Limited menu control (specials, seasonal items)</td>
+                                        <td>Testing process, your input on timing</td>
+                                    </tr>
+                                    <tr>
+                                        <td><em>"I can't do this for 5 more years"</em></td>
+                                        <td>Gradual menu evolution</td>
+                                        <td>Proven successes stay, customer feedback data</td>
+                                    </tr>
+                                    <tr>
+                                        <td><em>"How do I know you won't override me?"</em></td>
+                                        <td>New communication protocol commitment</td>
+                                        <td>Carl keeps you informed before major changes</td>
+                                    </tr>
+                                    <tr style="background: #fff3cd;">
+                                        <td><strong><em>"What are YOU prepared to offer?"</em></strong></td>
+                                        <td colspan="2"><strong>⚠️ This is your cue to propose something SPECIFIC using your flexibility zone above</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Collapsible 2: Decoding Carl's Signals -->
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h3>Decoding Carl's Signals</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>If Carl...</th>
+                                        <th>It Means...</th>
+                                        <th>You Should...</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Gives short answers, avoids eye contact</td>
+                                        <td><span style="color: #e74c3c; font-weight: bold;">DEFENSIVE</span> - Status/Autonomy threatened</td>
+                                        <td>Rebuild trust with acknowledgment/apology</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Shares perspective but tests your sincerity</td>
+                                        <td><span style="color: #f39c12; font-weight: bold;">CAUTIOUS</span> - Checking if you're genuine</td>
+                                        <td>Be specific, avoid vague promises</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Opens up about feelings, proposes ideas</td>
+                                        <td><span style="color: #27ae60; font-weight: bold;">OPEN</span> - Ready to collaborate</td>
+                                        <td>Co-create solutions, commit to specifics</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Crosses arms, says "you're not understanding"</td>
+                                        <td><span style="color: #c0392b; font-weight: bold;">FRUSTRATED</span> - Core needs being ignored</td>
+                                        <td>Pause, ask what you're missing</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 25px; background: #e8f5e9; border-left: 4px solid #27ae60;">
+                    <strong>💡 Pro Tip:</strong> Carl won't propose complete solutions for you. <strong>YOU</strong> are the owner—you must come to the table with specific ideas that balance his autonomy with your stability. The simulation tests your ability to lead through co-creation, not passive agreement.
+                </div>
             </div>
-        </div>
 
-        <!-- Footer -->
-        <div style="text-align: center; padding: 40px 20px; color: #666; font-size: 0.9em;">
-            <p>The Creative Crossroads Simulation | AICET, National University of Singapore</p>
-            <p style="margin-top: 10px;">A leadership learning experience exploring emotional regulation, conflict resolution, and creative talent management</p>
+            <!-- Start Note -->
+            <div class="start-note">
+                <p><strong>Keep this guide open in a separate tab during the simulation. Reference it when you need clarity on Jack's character, Carl's behavior, or the leadership concepts being tested.</strong></p>
+            </div>
         </div>
     </div>
 
     <script>
-        // Collapsible functionality
-        const collapsibles = document.querySelectorAll('.collapsible');
-        
-        collapsibles.forEach(collapsible => {
-            collapsible.addEventListener('click', function() {
-                this.classList.toggle('active');
-                const content = this.nextElementSibling;
-                
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                }
+        // Toggle collapsible sections
+        function toggleCollapsible(element) {
+            element.classList.toggle('active');
+            const content = element.nextElementSibling;
+            content.classList.toggle('active');
+        }
+
+        // Smooth scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
+        }
+
+        // Show/hide back-to-top button based on scroll position
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
         });
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        // Smooth scroll for navigation links
+        document.querySelectorAll('.nav-container a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const offsetTop = targetElement.offsetTop - 80; // Account for fixed nav
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
                     });
                 }
             });
