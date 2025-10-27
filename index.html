@@ -149,8 +149,9 @@
         
         .phase-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
+            /* Updated grid-template-columns to better fit 3 items */
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
             margin: 20px 0;
         }
         
@@ -306,6 +307,21 @@
             display: block;
             margin-bottom: 5px;
         }
+
+        /* Style for the new vague vs. concrete boxes */
+        .value-box.vague {
+            border-left-color: #e74c3c;
+        }
+        .value-box.vague strong {
+            color: #e74c3c;
+        }
+        .value-box.concrete {
+            border-left-color: #27ae60;
+        }
+        .value-box.concrete strong {
+            color: #27ae60;
+        }
+
         
         table {
             width: 100%;
@@ -377,7 +393,8 @@
             }
 
             .phase-grid {
-                grid-template-columns: 1fr;
+                /* Keep the grid flexible but allow stacking */
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             }
 
             .nav-container {
@@ -438,17 +455,21 @@
                     <div class="context-card">
                         <h4>🔥 The Crisis</h4>
                         <ul>
-                            <li>Major food critic visited tonight</li>
+                            <!-- ADDED: New context points -->
+                            <strong>Historical Context</strong>
+                            <li>Carl feels he's in a "creative rut" after 5 years with the same menu</li>
+                            <li>Your fear is driven by a past failure (Carl's "sweetbreads" dish)</li>
+                            
                             <strong>Earlier that day</strong>
+                            <!-- CLEANED: Removed duplicate -->
                             <li>You argued with Carl and gave him an ultimatum: "play the hits or leave"</li>
                             <li>Carl walked out during service</li>
-                            <li>You gave Carl an ultimatum: "play the hits or leave"</li>
-                            <li>Carl walked out during service</li>
-                          <strong>During the critic visit</strong>
-							<li>The critic was giving harsh reviews on existing menu</li>
+                            
+                            <strong>During the critic visit</strong>
+                            <li>The critic was giving harsh reviews on the existing menu</li>
                             <li>He returned without permission and cooked an innovative dish</li>
                             <li>The critic loved it—Carl saved the night</li>
-                           <strong> Now Carl is resigning</strong>
+                            <strong>Now Carl is resigning</strong>
                         </ul>
                     </div>
                     
@@ -472,50 +493,39 @@
             <!-- Simulation Structure -->
             <div class="section" id="structure">
                 <h2>🔄 Simulation Structure</h2>
-                <p>The simulation has <strong>5 stages</strong> that alternate between two personas:</p>
+                <!-- UPDATED: Changed "5 stages" to "3 stages" -->
+                <p>The simulation has <strong>3 stages</strong> that alternate between two personas:</p>
                 
                 <div class="warning-box">
                     <p style="margin: 0;"><strong>⚠️ Important:</strong> You'll interact with <strong>two different personas</strong> throughout this simulation:</p>
                     <ul style="margin: 10px 0 0 20px;">
-                        <li><strong>👨‍🍳 Carl</strong> (Stages 2 & 4): Direct dialogue with your chef—he reacts based on YOUR leadership</li>
-                        <li><strong>🧠 Inner Voice</strong> (Stages 1, 3 & 5): Your (Jack's) private reflection. Carl cannot hear this.</li>
+                        <!-- UPDATED: Simplified persona explanation -->
+                        <li><strong>👨‍🍳 Carl</strong> (Stage 2): Direct, high-stakes dialogue with your chef</li>
+                        <li><strong>🧠 Inner Voice</strong> (Stages 1 & 3): Your (Jack's) private reflection. Carl cannot hear this.</li>
                     </ul>
                 </div>
                 
+                <!-- UPDATED: Replaced 5 cards with 3 -->
                 <div class="phase-grid">
                     <div class="phase-card inner-voice-card">
                         <div class="phase-number">1</div>
                         <strong>Emotional Regulation</strong>
                         <p style="font-size: 0.9em; margin-top: 8px; color: #2196F3; font-weight: 600;">Talking to 🧠 Inner Voice</p>
-                        <p style="font-size: 0.85em; margin-top: 5px;">Process your emotions before approaching Carl</p>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Your private reflection and planning *before* you speak</p>
                     </div>
                     
                     <div class="phase-card carl-card">
                         <div class="phase-number">2</div>
-                        <strong>Repair & De-escalation</strong>
+                        <strong>The High-Stakes Conversation</strong>
                         <p style="font-size: 0.9em; margin-top: 8px; color: #667eea; font-weight: 600;">👨‍🍳 Talking with Carl</p>
-                        <p style="font-size: 0.85em; margin-top: 5px;">Address the immediate events, apologize, and rebuild trust</p>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Navigate the crisis and find a viable path forward</p>
                     </div>
                     
                     <div class="phase-card inner-voice-card">
                         <div class="phase-number">3</div>
-                        <strong>Strategic Planning</strong>
-                        <p style="font-size: 0.9em; margin-top: 8px; color: #2196F3; font-weight: 600;">Talking to 🧠 Inner Voice</p>
-                        <p style="font-size: 0.85em; margin-top: 5px;">Analyze the interaction and plan for negotiation</p>
-                    </div>
-                    
-                    <div class="phase-card carl-card">
-                        <div class="phase-number">4</div>
-                        <strong>Negotiation & Alignment</strong>
-                        <p style="font-size: 0.9em; margin-top: 8px; color: #667eea; font-weight: 600;">👨‍🍳 Talking with Carl</p>
-                        <p style="font-size: 0.85em; margin-top: 5px;">Co-create solutions that work for both of you</p>
-                    </div>
-                    
-                    <div class="phase-card inner-voice-card">
-                        <div class="phase-number">5</div>
                         <strong>Critical Reflection</strong>
                         <p style="font-size: 0.9em; margin-top: 8px; color: #2196F3; font-weight: 600;">Talking to 🧠 Inner Voice</p>
-                        <p style="font-size: 0.85em; margin-top: 5px;The Crisis">Reflect on your leadership and extract key lessons</p>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Your final private reflection on the outcome</p>
                     </div>
                 </div>
                 
@@ -584,7 +594,32 @@
                 <h2>📚 Leadership Frameworks</h2>
                 <p style="margin-bottom: 20px;">These concepts explain <strong>why</strong> this conflict is happening and <strong>how</strong> to navigate it. Expand each when you need deeper understanding.</p>
 
-                <!-- Framework 1 -->
+                <!-- ADDED: New Framework -->
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h3>⏱️ The Six Seconds Framework: Regulate Before You Act</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <p>Before you react in a high-stakes moment, take a brief pause (e.g., six seconds) to manage your emotions. This framework involves a simple, internal process:</p>
+                            <div class="value-box concrete" style="margin-top: 15px;">
+                                <strong>1. Identify Automatic Thoughts</strong>
+                                Recognize the immediate, negative, or distorted thought (e.g., "He's defying me to ruin me!").
+                            </div>
+                            <div class="value-box">
+                                <strong>2. Reframe Constructively</strong>
+                                Challenge that thought with a more objective, rational interpretation (e.g., "He's frustrated by the creative rut and took a risk that paid off. He's not trying to defy me; he's trying to cook.").
+                            </div>
+                            <div class="value-box concrete">
+                                <strong>3. Respond Intentionally</strong>
+                                Once reframed, you can choose a response that serves your *actual* goal (retention, collaboration) instead of just reacting to your initial emotion (anger, fear).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Framework 1 (Original) -->
                 <div class="collapsible">
                     <div class="collapsible-header" onclick="toggleCollapsible(this)">
                         <h3>🗣️ Communication Styles: Why You Keep Misunderstanding Each Other</h3>
@@ -621,7 +656,7 @@
                     </div>
                 </div>
 
-                <!-- Framework 2 -->
+                <!-- Framework 2 (Original) -->
                 <div class="collapsible">
                     <div class="collapsible-header" onclick="toggleCollapsible(this)">
                         <h3>⚡ SCARF Model: What Triggers Carl (and You)</h3>
@@ -675,10 +710,11 @@
                     </div>
                 </div>
 
-                <!-- Framework 3 -->
+                <!-- Framework 3 (Original) -->
                 <div class="collapsible">
+                    <!-- UPDATED: Title changed -->
                     <div class="collapsible-header" onclick="toggleCollapsible(this)">
-                        <h3>🥊 Conflict Styles: How to Shift to Collaboration</h3>
+                        <h3>🥊 Conflict Styles: Finding Mutual Gain</h3>
                         <span class="arrow">▼</span>
                     </div>
                     <div class="collapsible-content">
@@ -713,28 +749,31 @@
                                         <td>Neither person satisfied</td>
                                     </tr>
                                     <tr style="background: #e8f5e9;">
-                                        <td><strong>Collaborating</strong><br><span style="color: #2e7d32;">(The goal)</span></td>
+                                        <!-- UPDATED: Name changed -->
+                                        <td><strong>Collaborating (Mutual Gain)</strong><br><span style="color: #2e7d32;">(The goal)</span></td>
                                         <td>"What if we both got what we needed?"</td>
                                         <td>Takes time, requires vulnerability</td>
                                     </tr>
                                 </tbody>
                             </table>
 
+                            <!-- UPDATED: Highlight box content modified -->
                             <div class="highlight-box" style="margin-top: 20px;">
-                                <strong>What Carl needs now: Collaboration.</strong> Not accommodation ("do whatever") because that's hollow. He needs genuine partnership where you both shape the solution.
+                                <strong>What Carl needs now: Collaboration.</strong> He needs a genuine "win-win" partnership that addresses *both* his need for creativity *and* your need for business stability.
                             </div>
 
                             <h4 style="margin-top: 20px;">Collaborative Questions to Ask:</h4>
                             <ul>
                                 <li>"What do you need to feel like a real chef here?"</li>
                                 <li>"How can we balance your creativity with my stability needs?"</li>
-                                <li>"What would a win-win look like?"</li>
+                                <!-- UPDATED: "win-win" added -->
+                                <li>"What would a true win-win look like?"</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- Framework 4 -->
+                <!-- Framework 4 (Original) -->
                 <div class="collapsible">
                     <div class="collapsible-header" onclick="toggleCollapsible(this)">
                         <h3>🎯 The Three Foundations of Repair</h3>
@@ -784,49 +823,40 @@
                 <h2>💡 Tips: What to Do When...</h2>
                 <p style="margin-bottom: 20px;">Quick reference for common situations during the simulation.</p>
 
-                <!-- Collapsible 1: When Carl Asks Questions -->
+                <!-- UPDATED: Replaced first collapsible with new one -->
                 <div class="collapsible">
                     <div class="collapsible-header" onclick="toggleCollapsible(this)">
-                        <h3>When Carl Asks You Direct Questions</h3>
+                        <h3>💡 From Vague Promise to Concrete Plan</h3>
                         <span class="arrow">▼</span>
                     </div>
                     <div class="collapsible-content">
                         <div class="collapsible-inner">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>When Carl Says...</th>
-                                        <th>What You Might Offer</th>
-                                        <th>What You Need in Return</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><em>"I need creative freedom"</em></td>
-                                        <td>Limited menu control (specials, seasonal items)</td>
-                                        <td>Testing process, your input on timing</td>
-                                    </tr>
-                                    <tr>
-                                        <td><em>"I can't do this for 5 more years"</em></td>
-                                        <td>Gradual menu evolution</td>
-                                        <td>Proven successes stay, customer feedback data</td>
-                                    </tr>
-                                    <tr>
-                                        <td><em>"How do I know you won't override me?"</em></td>
-                                        <td>New communication protocol commitment</td>
-                                        <td>Carl keeps you informed before major changes</td>
-                                    </tr>
-                                    <tr style="background: #fff3cd;">
-                                        <td><strong><em>"What are YOU prepared to offer?"</em></strong></td>
-                                        <td colspan="2"><strong>⚠️ This is your cue to propose something SPECIFIC using your flexibility zone above</strong></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <p>Carl is tired of good intentions. He needs a concrete, structural plan he can trust. When you make an offer, check if it's a vague promise or a concrete plan.</p>
+                            
+                            <div class="value-box vague" style="margin-top: 15px;">
+                                <strong>VAGUE PROMISE (Low Trust)</strong>
+                                <ul>
+                                    <li>"I'll trust you more."</li>
+                                    <li>"We will collaborate better."</li>
+                                    <li>"I won't micromanage you."</li>
+                                </ul>
+                                <p style="margin-top:10px;">Carl hears these as empty and will likely push back, asking "How?"</p>
+                            </div>
+                            
+                            <div class="value-box concrete" style="margin-top: 15px;">
+                                <strong>CONCRETE PLAN (High Trust)</strong>
+                                <ul>
+                                    <li>"You get full control of a new 3-course seasonal menu."</li>
+                                    <li>"We'll have a 10-minute check-in every Monday at 10am to review ideas."</li>
+                                    <li>"My commitment is to ask questions, not give orders, when I feel nervous."</li>
+                                </ul>
+                                <p style="margin-top:10px;">These are structural changes he can see and rely on.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Collapsible 2: Decoding Carl's Signals -->
+                <!-- Collapsible 2 (Original) -->
                 <div class="collapsible">
                     <div class="collapsible-header" onclick="toggleCollapsible(this)">
                         <h3>Decoding Carl's Signals</h3>
@@ -865,6 +895,26 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADDED: New Tip Section -->
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <h3>💡 What to Do When Carl Pushes Back</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-inner">
+                            <p>When Carl challenges you with questions like:</p>
+                            <ul>
+                                <li><em>"How is this time different?"</em></li>
+                                <li><em>"What happens when you get nervous again?"</em></li>
+                                <li><em>"That sounds good, but what's the actual protocol?"</em></li>
+                            </ul>
+                            <p><strong>He is not being difficult.</strong> He is testing your sincerity against a 5-year history of broken trust. He needs <strong>proof</strong> that the *system* is changing, not just your *intentions*. </p>
+                            <p style="margin-top: 10px;">Your goal is to answer him with a <strong>concrete plan</strong> or <strong>protocol</strong>, not just a promise to "try harder."</p>
                         </div>
                     </div>
                 </div>
